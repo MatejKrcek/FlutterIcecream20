@@ -1,4 +1,4 @@
-# voiceicecream
+# Flutter Voice Icecream
 
 A new Flutter project.
 

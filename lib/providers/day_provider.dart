@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class DayProvider with ChangeNotifier {
@@ -15,7 +14,12 @@ class DayProvider with ChangeNotifier {
 
   int _index = 0;
 
-  int get index{
+  set indexVal(int i) {
+    _index = i;
+    notifyListeners(); 
+  }
+
+  int get index {
     return _index;
   }
 
@@ -29,9 +33,22 @@ class DayProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void getActualDate() {
-    String formatedDay = DateFormat.EEEE().format(DateTime.now());
-    _index = _days.indexWhere((element) => element.startsWith(formatedDay));
+  void moveForwardDay() {
+    if (_index >= 6) {
+      _index = 0;
+    } else {
+      _index++;
+    }
     notifyListeners();
   }
+
+  void moveBackwardDay() {
+    if (_index <= 0) {
+      _index = 6;
+    } else {
+      _index--;
+    }
+    notifyListeners();
+  }
+
 }

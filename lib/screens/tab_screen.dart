@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import './day_screen.dart';
 import './edit_screen.dart';
@@ -18,11 +19,28 @@ class _TabScreenState extends State<TabScreen> {
     EditScreen(),
     ProfileScreen(),
   ];
+  List _days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
 
   @override
   void initState() {
     super.initState();
-    Provider.of<DayProvider>(context, listen: false).getActualDate();
+    dateNow();
+  }
+
+  void dateNow() async {
+    String formatedDay = DateFormat.EEEE().format(DateTime.now());
+    int _index = _days.indexWhere((element) => element.startsWith(formatedDay));
+    print(_index);
+    final data = await Provider.of<DayProvider>(context, listen: false);
+    data.indexVal = _index;
   }
 
   void _onItemTapped(int index) {
